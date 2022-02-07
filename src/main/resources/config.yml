@@ -3,7 +3,7 @@ whitelist:
   # ホワイトリストを有効にするかどうか
   isEnable: false
   # プレイヤーがホワイトリストに入る経過日数
-  minDays: 0
+  minDays: 7
 
 # Protect関係
 protect:
