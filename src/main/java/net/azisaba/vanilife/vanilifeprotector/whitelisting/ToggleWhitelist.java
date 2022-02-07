@@ -13,12 +13,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class ToggleWhitelist implements CommandExecutor, Listener {
+    private final JavaPlugin plugin;
     private final ConfigLoader cl;
 
-    public ToggleWhitelist(ConfigLoader cl) {
+    public ToggleWhitelist(JavaPlugin plugin, ConfigLoader cl) {
         this.cl = cl;
+        this.plugin = plugin;
     }
 
     /**
@@ -45,6 +48,7 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
         if (cl.whitelist.isEnable) return;
         if (!cl.whitelist.observers.contains(event.getPlayer().getUniqueId())) return;
         for (Player p: Bukkit.getOnlinePlayers()) {
+            if (p.getUniqueId().equals(event.getPlayer().getUniqueId())) continue;
             if (cl.whitelist.observers.contains(p.getUniqueId())) return;
         }
         cl.whitelist.toggleWlist();
@@ -62,12 +66,19 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
 
         if (cl.whitelist.observers.contains(player.getUniqueId())) {
             cl.whitelist.toggleWlist();
-            player.sendMessage(ChatColor.AQUA + "ホワイトリストを無効にしました．");
+            Bukkit.getScheduler().runTaskLater(
+                    plugin,
+                    () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを無効にしました．"),
+                    20*3);
+
             return;
         }
 
-        if (cl.whitelist.uuids.contains(player.getUniqueId())) {
-            player.sendMessage(ChatColor.AQUA + "ホワイトリストを回避しました．");
+        if (cl.whitelist.whitelists.contains(player.getUniqueId())) {
+            Bukkit.getScheduler().runTaskLater(
+                    plugin,
+                    () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを回避しました．"),
+                    20*3);
             return;
         }
 
@@ -78,22 +89,30 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
      * ホワイトリスト・オブザーバがAfkに移行した際（要: Admin）に，
      * 他のオンラインなホワイトリスト・オブザーバが1人でも非AFKでなければ，
      * ホワイトリストを有効にする．
+     * Afkが解除された際に，ホワイトリストを無効にする．
      * @param event ess3のAfkStatusChangeEvent
      */
     @EventHandler
     public void onAFK(AfkStatusChangeEvent event) {
-        if (event.getAffected().isAfk()) return;
-        if (cl.whitelist.isEnable) return;
-        if (!(cl.whitelist.observers.contains(event.getAffected().getUUID()))) return;
+        if (!event.getAffected().isAfk()) {
+            if (cl.whitelist.isEnable) return;
+            if (!(cl.whitelist.observers.contains(event.getAffected().getBase().getUniqueId()))) return;
 
-        Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
-        assert ess != null;
-        for (Player p: Bukkit.getOnlinePlayers()) {
-            if (cl.whitelist.observers.contains(p.getUniqueId())) {
-                if (!ess.getUser(p).isAfk()) return;
+            Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
+            assert ess != null;
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (cl.whitelist.observers.contains(p.getUniqueId())) {
+                    if (!ess.getUser(p).isAfk() &&
+                        !p.getUniqueId().equals(event.getAffected().getBase().getUniqueId())) return;
+                }
             }
-        }
 
-        cl.whitelist.toggleWlist();
+            cl.whitelist.toggleWlist();
+        }
+        else if (event.getAffected().isAfk()) {
+            if (!cl.whitelist.isEnable) return;
+            if (!(cl.whitelist.observers.contains(event.getAffected().getBase().getUniqueId()))) return;
+            cl.whitelist.toggleWlist();
+        }
     }
 }

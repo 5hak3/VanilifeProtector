@@ -27,6 +27,18 @@ commands:
     permission: vanprotect.op
     permission-message: このコマンドは管理者専用です．
     usage: /<command> [page]
+  observer#add:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID]
+  observer#remove:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID]
+  observer#view:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [page]
   emergency:
     permission: vanprotect.op
     permission-message: このコマンドは管理者専用です．

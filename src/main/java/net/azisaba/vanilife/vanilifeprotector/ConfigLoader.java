@@ -28,9 +28,8 @@ public class ConfigLoader implements CommandExecutor {
         this.plugin = plugin;
         this.whitelist = new Whitelist(plugin);
 //        this.protect = new ConfigProtect();
-        if (!(this.loadConfig())) {
-            Bukkit.getServer().getLogger().warning("Config Load Failed.");
-        }
+        if (this.loadConfig()) Bukkit.getServer().getLogger().info("Config Load Success!");
+        else Bukkit.getServer().getLogger().warning("Config Load Failed.");
     }
 
     public boolean loadConfig() {
@@ -42,18 +41,13 @@ public class ConfigLoader implements CommandExecutor {
 
         // whitelist
         if(!(this.whitelist.loadWlistData())) return false;
+        if(!(this.whitelist.loadOlistData())) return false;
         cs = fc.getConfigurationSection("whitelist");
         if (cs == null) return false;
         property = cs.getBoolean("isEnable");
         this.whitelist.isEnable = (boolean) property;
         property = cs.getInt("minDays");
         this.whitelist.minDays = (int) property;
-        property = cs.getList("observer");
-        if (property == null) return false;
-        if (((List<?>) property).get(0) instanceof String) return false;
-        for (String name: (List<String>) property) {
-            this.whitelist.observers.add(Bukkit.getPlayer(name).getUniqueId());
-        }
 
         // protect
 //        cs = fc.getConfigurationSection("protect");

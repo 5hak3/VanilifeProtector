@@ -13,11 +13,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class AddWhitelist implements CommandExecutor, Listener {
+public class ChangeWhitelist implements CommandExecutor, Listener {
     private final JavaPlugin plugin;
     private final ConfigLoader cl;
 
-    public AddWhitelist(JavaPlugin plugin, ConfigLoader cl) {
+    public ChangeWhitelist(JavaPlugin plugin, ConfigLoader cl) {
         this.plugin = plugin;
         this.cl = cl;
     }
@@ -41,12 +41,12 @@ public class AddWhitelist implements CommandExecutor, Listener {
 
         boolean res = false;
         if (command.getName().equalsIgnoreCase("whitelist#add")) {
-            if (res = add(player)) sender.sendMessage(ChatColor.RED + "ホワイトリスト登録に成功しました．");
-            else sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録に失敗しました．");
+            if (res = add(player)) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録に成功しました．");
+            else sender.sendMessage(ChatColor.RED + "ホワイトリスト登録に失敗しました．");
         }
         else if (command.getName().equalsIgnoreCase("whitelist#remove")) {
-            if (res = remove(player)) sender.sendMessage(ChatColor.RED + "ホワイトリスト登録解除に成功しました．");
-            else sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録解除に失敗しました．");
+            if (res = remove(player)) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録解除に成功しました．");
+            else sender.sendMessage(ChatColor.RED + "ホワイトリスト登録解除に失敗しました．");
         }
 
         return res;
@@ -67,7 +67,7 @@ public class AddWhitelist implements CommandExecutor, Listener {
      * @return 結果の成否
      */
     private boolean add(Player player) {
-        if (cl.whitelist.uuids.contains(player.getUniqueId())) return false;
+        if (cl.whitelist.whitelists.contains(player.getUniqueId())) return false;
 
         int wlMinDays = this.cl.whitelist.minDays;
         if (wlMinDays < 0) return false;
@@ -75,7 +75,7 @@ public class AddWhitelist implements CommandExecutor, Listener {
         // TOTAL_WORLD_TIMEはそのワールドに参加している合計Tick
         int totalSec = player.getStatistic(Statistic.TOTAL_WORLD_TIME);
         if (totalSec > wlMinDays * 24 * 3600 * 20) {
-            cl.whitelist.uuids.add(player.getUniqueId());
+            cl.whitelist.whitelists.add(player.getUniqueId());
             cl.whitelist.saveWlistData();
             Bukkit.getServer().getLogger().info(
                     player.getName() + "(" + player.getUniqueId() + ") was Whitelisted!");
@@ -93,14 +93,14 @@ public class AddWhitelist implements CommandExecutor, Listener {
      * @return 結果の成否
      */
     public boolean remove(Player player) {
-        if (!cl.whitelist.uuids.contains(player.getUniqueId())) return false;
-        cl.whitelist.uuids.remove(player.getUniqueId());
+        if (!cl.whitelist.whitelists.contains(player.getUniqueId())) return false;
+        cl.whitelist.whitelists.remove(player.getUniqueId());
         cl.whitelist.saveWlistData();
         Bukkit.getServer().getLogger().info(
                 player.getName() + "(" + player.getUniqueId() + ") was no longer Whitelisted!");
         Bukkit.getScheduler().runTaskLater(
                 this.plugin,
-                () -> player.sendMessage(ChatColor.AQUA + "あなたはホワイトリストから削除されました！"),
+                () -> player.sendMessage(ChatColor.RED + "あなたはホワイトリストから削除されました！"),
                 20*3);
 
         return true;

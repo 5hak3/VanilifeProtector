@@ -1,7 +1,7 @@
 package net.azisaba.vanilife.vanilifeprotector;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,12 +24,11 @@ public class Emergency implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Server server = plugin.getServer();
-        server.setWhitelist(true);
-        Set<OfflinePlayer> admins = server.getWhitelistedPlayers();
+        Bukkit.setWhitelist(true);
+        Set<OfflinePlayer> admins = plugin.getServer().getWhitelistedPlayers();
         ArrayList<UUID> adminsUid = new ArrayList<>();
         for (OfflinePlayer p: admins) adminsUid.add(p.getUniqueId());
-        for (Player p: server.getOnlinePlayers()) {
+        for (Player p: plugin.getServer().getOnlinePlayers()) {
             if (!adminsUid.contains(p.getUniqueId())) p.kickPlayer("しばらくお待ちください．");
         }
         return true;

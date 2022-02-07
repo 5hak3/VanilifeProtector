@@ -1,11 +1,9 @@
 # whitelist関係
 whitelist:
   # ホワイトリストを有効にするかどうか
-  isEnable: true
-  # プレイヤーがホワイトリストに入る経過日数 (-1で無効)
-  minDays: -1
-  # ホワイトリストを無効にする人たちのリスト
-  observer: []
+  isEnable: false
+  # プレイヤーがホワイトリストに入る経過日数
+  minDays: 0
 
 # Protect関係
 protect:
