@@ -1,0 +1,37 @@
+name: VanilifeProtector
+version: '${project.version}'
+main: net.azisaba.vanilife.vanilifeprotector.VanilifeProtector
+api-version: 1.17
+depend: [ Essentials ]
+authors: [ 5hak3 ]
+description: Protect Vanilife
+
+permissions:
+  vanprotect.op:
+    default: op
+
+commands:
+  whitelist#add:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID]
+  whitelist#remove:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID]
+  whitelist#toggle:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command>
+  whitelist#view:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [page]
+  emergency:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command>
+  vpreload:
+    permission: vanprotect.op
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command>

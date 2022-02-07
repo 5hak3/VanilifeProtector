@@ -1,0 +1,13 @@
+# whitelist関係
+whitelist:
+  # ホワイトリストを有効にするかどうか
+  isEnable: true
+  # プレイヤーがホワイトリストに入る経過日数 (-1で無効)
+  minDays: -1
+  # ホワイトリストを無効にする人たちのリスト
+  observer: []
+
+# Protect関係
+protect:
+  # 設置されたブロックを設置者しか破壊できなくする機能の有効無効
+  isEnable: true
