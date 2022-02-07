@@ -5,7 +5,7 @@ whitelist:
   # プレイヤーがホワイトリストに入る経過日数
   minDays: 7
 
-# Protect関係
-protect:
-  # 設置されたブロックを設置者しか破壊できなくする機能の有効無効
-  isEnable: true
+# webhook関係
+webhook:
+  # webhookのURL
+  url: https://canary.discord.com/api/webhooks/exam/ples

@@ -1,5 +1,6 @@
 package net.azisaba.vanilife.vanilifeprotector.whitelisting;
 
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
@@ -213,7 +214,14 @@ public class Whitelist {
         this.isEnable = !(this.isEnable);
         this.plugin.getConfig().set("whitelist.isEnable", this.isEnable);
         this.plugin.saveConfig();
-        this.plugin.getServer().broadcastMessage("ホワイトリストが"+this.isEnable+"になりました．");
+        if (this.isEnable) {
+            this.plugin.getServer().broadcastMessage(ChatColor.RED + "ホワイトリストが有効になりました．");
+            OpenCloseNotifier.close();
+        }
+        else {
+            this.plugin.getServer().broadcastMessage(ChatColor.AQUA + "ホワイトリストが無効になりました．");
+            OpenCloseNotifier.open();
+        }
         this.plugin.getLogger().info("ホワイトリストが"+this.isEnable+"になりました．");
     }
 }

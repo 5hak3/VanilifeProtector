@@ -9,7 +9,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ConfigLoader implements CommandExecutor {
     private final JavaPlugin plugin;

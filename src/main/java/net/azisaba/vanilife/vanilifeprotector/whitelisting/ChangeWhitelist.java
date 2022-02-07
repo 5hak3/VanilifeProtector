@@ -41,11 +41,13 @@ public class ChangeWhitelist implements CommandExecutor, Listener {
 
         boolean res = false;
         if (command.getName().equalsIgnoreCase("whitelist#add")) {
-            if (res = add(player)) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録に成功しました．");
+            res = add(player);
+            if (res) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録に成功しました．");
             else sender.sendMessage(ChatColor.RED + "ホワイトリスト登録に失敗しました．");
         }
         else if (command.getName().equalsIgnoreCase("whitelist#remove")) {
-            if (res = remove(player)) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録解除に成功しました．");
+            res = remove(player);
+            if (res) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録解除に成功しました．");
             else sender.sendMessage(ChatColor.RED + "ホワイトリスト登録解除に失敗しました．");
         }
 
