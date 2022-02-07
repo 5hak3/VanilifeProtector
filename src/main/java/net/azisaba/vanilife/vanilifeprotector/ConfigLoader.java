@@ -41,7 +41,7 @@ public class ConfigLoader implements CommandExecutor {
 
         // whitelist
         if(!(this.whitelist.loadWlistData())) return false;
-        if(!(this.whitelist.loadOlistData())) return false;
+//        if(!(this.whitelist.loadOlistData())) return false;
         cs = fc.getConfigurationSection("whitelist");
         if (cs == null) return false;
         property = cs.getBoolean("isEnable");

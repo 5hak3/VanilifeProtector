@@ -7,43 +7,46 @@ authors: [ 5hak3 ]
 description: Protect Vanilife
 
 permissions:
-  vanprotect.op:
+  vanprotect.commands:
+    default: op
+    description: コマンドを実行する
+  vanprotect.observer:
     default: op
 
 commands:
   whitelist#add:
-    permission: vanprotect.op
+    permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command> [MCID]
   whitelist#remove:
-    permission: vanprotect.op
+    permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command> [MCID]
   whitelist#toggle:
-    permission: vanprotect.op
+    permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command>
   whitelist#view:
-    permission: vanprotect.op
+    permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command> [page]
-  observer#add:
-    permission: vanprotect.op
-    permission-message: このコマンドは管理者専用です．
-    usage: /<command> [MCID]
-  observer#remove:
-    permission: vanprotect.op
-    permission-message: このコマンドは管理者専用です．
-    usage: /<command> [MCID]
-  observer#view:
-    permission: vanprotect.op
-    permission-message: このコマンドは管理者専用です．
-    usage: /<command> [page]
+#  observer#add:
+#    permission: vanprotect.commands
+#    permission-message: このコマンドは管理者専用です．
+#    usage: /<command> [MCID]
+#  observer#remove:
+#    permission: vanprotect.commands
+#    permission-message: このコマンドは管理者専用です．
+#    usage: /<command> [MCID]
+#  observer#view:
+#    permission: vanprotect.commands
+#    permission-message: このコマンドは管理者専用です．
+#    usage: /<command> [page]
   emergency:
-    permission: vanprotect.op
+    permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command>
   vpreload:
-    permission: vanprotect.op
+    permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command>

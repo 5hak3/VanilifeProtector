@@ -31,8 +31,8 @@ public class ViewWhitelist implements CommandExecutor {
 
         if (command.getName().equalsIgnoreCase("whitelist#view"))
             view(sender, cl.whitelist.whitelists, page);
-        else if (command.getName().equalsIgnoreCase("observer#view"))
-            view(sender, cl.whitelist.observers, page);
+//        else if (command.getName().equalsIgnoreCase("observer#view"))
+//            view(sender, cl.whitelist.observers, page);
         else return false;
 
         return true;

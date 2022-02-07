@@ -46,10 +46,11 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
         if (cl.whitelist.isEnable) return;
-        if (!cl.whitelist.observers.contains(event.getPlayer().getUniqueId())) return;
+//        if (!cl.whitelist.observers.contains(event.getPlayer().getUniqueId())) return;
+        if (!event.getPlayer().hasPermission("vanprotect.observer")) return;
         for (Player p: Bukkit.getOnlinePlayers()) {
             if (p.getUniqueId().equals(event.getPlayer().getUniqueId())) continue;
-            if (cl.whitelist.observers.contains(p.getUniqueId())) return;
+            if (p.hasPermission("vanprotect.observer")) return;
         }
         cl.whitelist.toggleWlist();
     }
@@ -64,7 +65,8 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
         if (!(cl.whitelist.isEnable)) return;
         Player player = event.getPlayer();
 
-        if (cl.whitelist.observers.contains(player.getUniqueId())) {
+//        if (cl.whitelist.observers.contains(player.getUniqueId())) {
+        if (player.hasPermission("vanprotect.observer")) {
             cl.whitelist.toggleWlist();
             Bukkit.getScheduler().runTaskLater(
                     plugin,
@@ -96,22 +98,23 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
     public void onAFK(AfkStatusChangeEvent event) {
         if (!event.getAffected().isAfk()) {
             if (cl.whitelist.isEnable) return;
-            if (!(cl.whitelist.observers.contains(event.getAffected().getBase().getUniqueId()))) return;
+//            if (!(cl.whitelist.observers.contains(event.getAffected().getBase().getUniqueId()))) return;
+            if (!event.getAffected().getBase().hasPermission("vanprotect.observer")) return;
 
             Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
             assert ess != null;
             for (Player p : Bukkit.getOnlinePlayers()) {
-                if (cl.whitelist.observers.contains(p.getUniqueId())) {
-                    if (!ess.getUser(p).isAfk() &&
-                        !p.getUniqueId().equals(event.getAffected().getBase().getUniqueId())) return;
-                }
+//                if (cl.whitelist.observers.contains(p.getUniqueId())) {
+                if (p.getUniqueId().equals(event.getAffected().getBase().getUniqueId())) continue;
+                if (p.hasPermission("vanprotect.observer") && !ess.getUser(p).isAfk()) return;
             }
 
             cl.whitelist.toggleWlist();
         }
         else if (event.getAffected().isAfk()) {
             if (!cl.whitelist.isEnable) return;
-            if (!(cl.whitelist.observers.contains(event.getAffected().getBase().getUniqueId()))) return;
+//            if (!(cl.whitelist.observers.contains(event.getAffected().getBase().getUniqueId()))) return;
+            if (!event.getAffected().getBase().hasPermission("vanprotect.observer")) return;
             cl.whitelist.toggleWlist();
         }
     }

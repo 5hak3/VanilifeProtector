@@ -20,14 +20,14 @@ public class Whitelist {
     public boolean isEnable;
     public int minDays;
     public ArrayList<UUID> whitelists;
-    public ArrayList<UUID> observers;
+//    public ArrayList<UUID> observers;
 
     public Whitelist(JavaPlugin plugin) {
         this.plugin = plugin;
         isEnable = false;
         minDays = -1;
         whitelists = new ArrayList<>();
-        observers = new ArrayList<>();
+//        observers = new ArrayList<>();
     }
 
     /**
@@ -56,23 +56,23 @@ public class Whitelist {
      * olisteduuids.datからUUIDリストを読み込む
      * @return 結果の成否
      */
-    public boolean loadOlistData() {
-        ArrayList<UUID> resList = loadListData(ofilePath);
-        if (resList != null) {
-            this.observers = resList;
-            return true;
-        }
-        return false;
-    }
+//    public boolean loadOlistData() {
+//        ArrayList<UUID> resList = loadListData(ofilePath);
+//        if (resList != null) {
+//            this.observers = resList;
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * olisteduuids.datにUUIDリストを書き出す
      * @return 結果の成否
      */
 
-    public boolean saveOlistData() {
-        return saveListData(ofilePath, this.observers);
-    }
+//    public boolean saveOlistData() {
+//        return saveListData(ofilePath, this.observers);
+//    }
 
     /**
      * olisteduuids.datからUUIDリストを読み込む
