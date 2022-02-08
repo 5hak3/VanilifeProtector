@@ -17,18 +17,15 @@ import java.util.zip.GZIPOutputStream;
 public class Whitelist {
     private final JavaPlugin plugin;
     private static final String wfilePath = "plugins/VanilifeProtector/wlisteduuids.dat";
-    private static final String ofilePath = "plugins/VanilifeProtector/olisteduuids.dat";
     public boolean isEnable;
     public int minDays;
     public ArrayList<UUID> whitelists;
-//    public ArrayList<UUID> observers;
 
     public Whitelist(JavaPlugin plugin) {
         this.plugin = plugin;
         isEnable = false;
         minDays = -1;
         whitelists = new ArrayList<>();
-//        observers = new ArrayList<>();
     }
 
     /**
@@ -54,26 +51,16 @@ public class Whitelist {
     }
 
     /**
-     * olisteduuids.datからUUIDリストを読み込む
+     * olisteduuids.datからUUIDリストを読み込む → 利用しない
      * @return 結果の成否
      */
-//    public boolean loadOlistData() {
-//        ArrayList<UUID> resList = loadListData(ofilePath);
-//        if (resList != null) {
-//            this.observers = resList;
-//            return true;
-//        }
-//        return false;
-//    }
+    public boolean loadOlistData() { return false; }
 
     /**
-     * olisteduuids.datにUUIDリストを書き出す
+     * olisteduuids.datにUUIDリストを書き出す → 利用しない
      * @return 結果の成否
      */
-
-//    public boolean saveOlistData() {
-//        return saveListData(ofilePath, this.observers);
-//    }
+    public boolean saveOlistData() { return false; }
 
     /**
      * olisteduuids.datからUUIDリストを読み込む

@@ -69,6 +69,6 @@ public class OpenCloseNotifier {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                });
+        });
     }
 }
