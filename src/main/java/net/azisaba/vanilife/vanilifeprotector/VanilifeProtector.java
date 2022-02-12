@@ -25,5 +25,8 @@ public final class VanilifeProtector extends JavaPlugin {
         Objects.requireNonNull(getCommand("whitelist#view")).setExecutor(vwl);
         getServer().getPluginManager().registerEvents(twl, this);
         getServer().getPluginManager().registerEvents(cwl, this);
+
+        // サーバ起動時にホワリスが無効になっていたら有効にする
+        if (!cl.whitelist.isEnable) cl.whitelist.toggleWlist();
     }
 }

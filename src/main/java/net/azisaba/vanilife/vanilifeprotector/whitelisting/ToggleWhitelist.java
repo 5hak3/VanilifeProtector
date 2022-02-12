@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -36,6 +37,7 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
         else {
             sender.sendMessage(ChatColor.AQUA + "ホワイトリストを無効にしました．");
         }
+        plugin.getLogger().info("理由: " + sender.getName() + "によるコマンド操作．");
         return true;
     }
 
@@ -43,16 +45,16 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
      * ホワイトリスト無効時にプレイヤーが離脱した際に，そのプレイヤーがホワイトリスト・オブザーバなら，
      * 他にホワイトリスト・オブザーバがいなければホワイトリストをONにする．
      */
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGHEST)
     public void onLeave(PlayerQuitEvent event) {
         if (cl.whitelist.isEnable) return;
-//        if (!cl.whitelist.observers.contains(event.getPlayer().getUniqueId())) return;
         if (!event.getPlayer().hasPermission("vanprotect.observer")) return;
         for (Player p: Bukkit.getOnlinePlayers()) {
             if (p.getUniqueId().equals(event.getPlayer().getUniqueId())) continue;
             if (p.hasPermission("vanprotect.observer")) return;
         }
         cl.whitelist.toggleWlist();
+        plugin.getLogger().info("理由: " + event.getPlayer().getName() + "がログアウトしたため．");
     }
 
     /**
@@ -67,15 +69,17 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
 
         if (player.hasPermission("vanprotect.observer")) {
             cl.whitelist.toggleWlist();
+            plugin.getLogger().info(ChatColor.AQUA + event.getPlayer().getName() + "がログインしたため．");
             Bukkit.getScheduler().runTaskLater(
                     plugin,
-                    () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを無効にしました．"),
+                    () -> player.sendMessage("理由: " + "ホワイトリストを無効にしました．"),
                     20*3);
 
             return;
         }
 
         if (cl.whitelist.whitelists.contains(player.getUniqueId())) {
+            plugin.getLogger().info(ChatColor.AQUA + event.getPlayer().getName() + "がホワイトリストに含まれているため回避．");
             Bukkit.getScheduler().runTaskLater(
                     plugin,
                     () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを回避しました．"),
@@ -91,6 +95,7 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
      * 他のオンラインなホワイトリスト・オブザーバが1人でも非AFKでなければ，
      * ホワイトリストを有効にする．
      * Afkが解除された際に，ホワイトリストを無効にする．
+     * → DisconnectするとAFK解除判定が同時に発生し，ホワリスが解除されてしまうため削除
      * @param event ess3のAfkStatusChangeEvent
      */
     @EventHandler
@@ -101,17 +106,19 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
 
             Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
             assert ess != null;
-            for (Player p : Bukkit.getOnlinePlayers()) {
+            for (Player p: Bukkit.getOnlinePlayers()) {
                 if (p.getUniqueId().equals(event.getAffected().getBase().getUniqueId())) continue;
                 if (p.hasPermission("vanprotect.observer") && !ess.getUser(p).isAfk()) return;
             }
 
             cl.whitelist.toggleWlist();
+            plugin.getLogger().info("理由: " + event.getAffected().getBase().getName() + "がAFKになったため．");
         }
         else if (event.getAffected().isAfk()) {
             if (!cl.whitelist.isEnable) return;
             if (!event.getAffected().getBase().hasPermission("vanprotect.observer")) return;
             cl.whitelist.toggleWlist();
+            plugin.getLogger().info("理由: " + event.getAffected().getBase().getName() + "が非AFKになったため．");
         }
     }
 }

@@ -3,9 +3,9 @@ whitelist:
   # ホワイトリストを有効にするかどうか
   isEnable: false
   # プレイヤーがホワイトリストに入る経過日数
-  minDays: 7
+  minDays: 10
 
 # webhook関係
 webhook:
   # webhookのURL
-  url: https://canary.discord.com/api/webhooks/exam/ples
+  url: https://discord.com/api/webhooks/Example
