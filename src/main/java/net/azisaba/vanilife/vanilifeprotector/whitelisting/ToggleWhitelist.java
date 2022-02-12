@@ -69,17 +69,17 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
 
         if (player.hasPermission("vanprotect.observer")) {
             cl.whitelist.toggleWlist();
-            plugin.getLogger().info(ChatColor.AQUA + event.getPlayer().getName() + "がログインしたため．");
+            plugin.getLogger().info("理由: " + event.getPlayer().getName() + "がログインしたため．");
             Bukkit.getScheduler().runTaskLater(
                     plugin,
-                    () -> player.sendMessage("理由: " + "ホワイトリストを無効にしました．"),
+                    () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを無効にしました．"),
                     20*3);
 
             return;
         }
 
         if (cl.whitelist.whitelists.contains(player.getUniqueId())) {
-            plugin.getLogger().info(ChatColor.AQUA + event.getPlayer().getName() + "がホワイトリストに含まれているため回避．");
+            plugin.getLogger().info("理由: " + event.getPlayer().getName() + "がホワイトリストに含まれているため回避．");
             Bukkit.getScheduler().runTaskLater(
                     plugin,
                     () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを回避しました．"),

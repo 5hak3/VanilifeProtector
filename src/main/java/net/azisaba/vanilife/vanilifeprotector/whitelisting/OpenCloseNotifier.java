@@ -35,8 +35,8 @@ public class OpenCloseNotifier {
             e.printStackTrace();
         }
         uname = new JsonPrimitive("ばにらいふ！開閉通知");
-        open = new JsonPrimitive("ばにらいふ！が開きました！");
-        close = new JsonPrimitive("ばにらいふ！が閉じました！");
+        open = new JsonPrimitive("✅ばにらいふ！が開きました！");
+        close = new JsonPrimitive("\uD83D\uDED1ばにらいふ！が閉じました！");
         taskQueue = new ArrayList<>();
         flg = false;
     }
