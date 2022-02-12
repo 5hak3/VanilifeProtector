@@ -49,9 +49,12 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
     public void onLeave(PlayerQuitEvent event) {
         if (cl.whitelist.isEnable) return;
         if (!event.getPlayer().hasPermission("vanprotect.observer")) return;
+
+        Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
+        assert ess != null;
         for (Player p: Bukkit.getOnlinePlayers()) {
             if (p.getUniqueId().equals(event.getPlayer().getUniqueId())) continue;
-            if (p.hasPermission("vanprotect.observer")) return;
+            if (p.hasPermission("vanprotect.observer") && !ess.getUser(p).isAfk()) return;
         }
         cl.whitelist.toggleWlist();
         plugin.getLogger().info("理由: " + event.getPlayer().getName() + "がログアウトしたため．");
