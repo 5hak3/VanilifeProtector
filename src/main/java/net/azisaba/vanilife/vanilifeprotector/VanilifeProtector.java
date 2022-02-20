@@ -1,6 +1,7 @@
 package net.azisaba.vanilife.vanilifeprotector;
 
 import net.azisaba.vanilife.vanilifeprotector.whitelisting.ChangeWhitelist;
+import net.azisaba.vanilife.vanilifeprotector.whitelisting.KickPlayer;
 import net.azisaba.vanilife.vanilifeprotector.whitelisting.ToggleWhitelist;
 import net.azisaba.vanilife.vanilifeprotector.whitelisting.ViewWhitelist;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +17,7 @@ public final class VanilifeProtector extends JavaPlugin {
         ChangeWhitelist cwl = new ChangeWhitelist(this, cl);
         ToggleWhitelist twl = new ToggleWhitelist(this, cl);
         ViewWhitelist vwl = new ViewWhitelist(cl);
+        KickPlayer kp = new KickPlayer(cl);
 
         Objects.requireNonNull(getCommand("vpreload")).setExecutor(cl);
         Objects.requireNonNull(getCommand("emergency")).setExecutor(em);
@@ -25,6 +27,7 @@ public final class VanilifeProtector extends JavaPlugin {
         Objects.requireNonNull(getCommand("whitelist#view")).setExecutor(vwl);
         getServer().getPluginManager().registerEvents(twl, this);
         getServer().getPluginManager().registerEvents(cwl, this);
+        getServer().getPluginManager().registerEvents(kp, this);
 
         // サーバ起動時にホワリスが無効になっていたら有効にする
         if (!cl.whitelist.isEnable) cl.whitelist.toggleWlist();

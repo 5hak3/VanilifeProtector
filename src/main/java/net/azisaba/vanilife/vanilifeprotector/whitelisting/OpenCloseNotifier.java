@@ -35,8 +35,10 @@ public class OpenCloseNotifier {
             e.printStackTrace();
         }
         uname = new JsonPrimitive("ばにらいふ！開閉通知");
-        open = new JsonPrimitive("✅ばにらいふ！が開きました！");
-        close = new JsonPrimitive("\uD83D\uDED1ばにらいふ！が閉じました！");
+//        open = new JsonPrimitive("✅ばにらいふ！が開きました！");
+        open = new JsonPrimitive("https://media.discordapp.net/attachments/943483083536105512/943483806759944222/open_vanilife.png");
+//        close = new JsonPrimitive("\uD83D\uDED1ばにらいふ！が閉じました！");
+        close = new JsonPrimitive("https://media.discordapp.net/attachments/943483083536105512/943483806231433246/close_vanilife.png");
         taskQueue = new ArrayList<>();
         flg = false;
     }

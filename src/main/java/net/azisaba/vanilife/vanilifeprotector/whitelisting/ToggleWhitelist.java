@@ -77,20 +77,7 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
                     plugin,
                     () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを無効にしました．"),
                     20*3);
-
-            return;
         }
-
-        if (cl.whitelist.whitelists.contains(player.getUniqueId())) {
-            plugin.getLogger().info("理由: " + event.getPlayer().getName() + "がホワイトリストに含まれているため回避．");
-            Bukkit.getScheduler().runTaskLater(
-                    plugin,
-                    () -> player.sendMessage(ChatColor.AQUA + "ホワイトリストを回避しました．"),
-                    20*3);
-            return;
-        }
-
-        player.kickPlayer("現在ホワイトリストが有効になっております．数時間後に再試行してください．");
     }
 
     /**
