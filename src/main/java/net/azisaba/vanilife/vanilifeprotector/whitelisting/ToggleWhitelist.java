@@ -90,25 +90,5 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
      */
     @EventHandler
     public void onAFK(AfkStatusChangeEvent event) {
-        if (!event.getAffected().isAfk()) {
-            if (cl.whitelist.isEnable) return;
-            if (!event.getAffected().getBase().hasPermission("vanprotect.observer")) return;
-
-            Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
-            assert ess != null;
-            for (Player p: Bukkit.getOnlinePlayers()) {
-                if (p.getUniqueId().equals(event.getAffected().getBase().getUniqueId())) continue;
-                if (p.hasPermission("vanprotect.observer") && !ess.getUser(p).isAfk()) return;
-            }
-
-            cl.whitelist.toggleWlist();
-            plugin.getLogger().info("理由: " + event.getAffected().getBase().getName() + "がAFKになったため．");
-        }
-        else if (event.getAffected().isAfk()) {
-            if (!cl.whitelist.isEnable) return;
-            if (!event.getAffected().getBase().hasPermission("vanprotect.observer")) return;
-            cl.whitelist.toggleWlist();
-            plugin.getLogger().info("理由: " + event.getAffected().getBase().getName() + "が非AFKになったため．");
-        }
     }
 }
