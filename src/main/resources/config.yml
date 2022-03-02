@@ -7,5 +7,7 @@ whitelist:
 
 # webhook関係
 webhook:
-  # webhookのURL
+  # OCNotifierのURL
   url: https://discord.com/api/webhooks/Example
+  # SPNotifierのURL
+  url2: https://discord.com/api/webhooks/Example

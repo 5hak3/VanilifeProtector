@@ -1,9 +1,6 @@
 package net.azisaba.vanilife.vanilifeprotector;
 
-import net.azisaba.vanilife.vanilifeprotector.whitelisting.ChangeWhitelist;
-import net.azisaba.vanilife.vanilifeprotector.whitelisting.KickPlayer;
-import net.azisaba.vanilife.vanilifeprotector.whitelisting.ToggleWhitelist;
-import net.azisaba.vanilife.vanilifeprotector.whitelisting.ViewWhitelist;
+import net.azisaba.vanilife.vanilifeprotector.whitelisting.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -18,6 +15,8 @@ public final class VanilifeProtector extends JavaPlugin {
         ToggleWhitelist twl = new ToggleWhitelist(this, cl);
         ViewWhitelist vwl = new ViewWhitelist(cl);
         KickPlayer kp = new KickPlayer(cl);
+        cl.whitelist.setKp(kp);
+        PlayerStatisticsOperator pso = new PlayerStatisticsOperator();
 
         Objects.requireNonNull(getCommand("vpreload")).setExecutor(cl);
         Objects.requireNonNull(getCommand("emergency")).setExecutor(em);
@@ -25,6 +24,8 @@ public final class VanilifeProtector extends JavaPlugin {
         Objects.requireNonNull(getCommand("whitelist#add")).setExecutor(cwl);
         Objects.requireNonNull(getCommand("whitelist#remove")).setExecutor(cwl);
         Objects.requireNonNull(getCommand("whitelist#view")).setExecutor(vwl);
+        Objects.requireNonNull(getCommand("vpstats#get")).setExecutor(pso);
+        Objects.requireNonNull(getCommand("vpstats#set")).setExecutor(pso);
         getServer().getPluginManager().registerEvents(twl, this);
         getServer().getPluginManager().registerEvents(cwl, this);
         getServer().getPluginManager().registerEvents(kp, this);

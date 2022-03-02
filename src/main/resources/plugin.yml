@@ -2,7 +2,7 @@ name: VanilifeProtector
 version: '${project.version}'
 main: net.azisaba.vanilife.vanilifeprotector.VanilifeProtector
 api-version: 1.17
-depend: [ Essentials ]
+depend: [ Essentials, Vault ]
 authors: [ 5hak3 ]
 description: Protect Vanilife
 
@@ -38,3 +38,11 @@ commands:
     permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command>
+  vpstats#get:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID]
+  vpstats#set:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID] [Value]

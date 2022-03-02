@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public class ToggleWhitelist implements CommandExecutor, Listener {
     private final JavaPlugin plugin;
@@ -29,7 +30,7 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
      * コマンド発行時にホワリスをON/OFFする
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         cl.whitelist.toggleWlist();
         if (cl.whitelist.isEnable) {
             sender.sendMessage(ChatColor.AQUA + "ホワイトリストを有効にしました．");
@@ -63,7 +64,6 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
     /**
      * ホワイトリスト有効時にプレイヤーが入場した際に，
      * そのプレイヤーがホワイトリスト・オブザーバならホワイトリストを無効にする．
-     * そうでなければ，そのプレイヤーがホワイトリストに入っていなければKickする．
      */
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

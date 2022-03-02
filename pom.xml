@@ -6,7 +6,7 @@
 
     <groupId>net.azisaba.vanilife</groupId>
     <artifactId>VanilifeProtector</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>VanilifeProtector</name>
@@ -97,5 +97,22 @@
             <version>1.7</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>se.eris</groupId>
+            <artifactId>notnull-instrumenter-maven-plugin</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+        <groupId>com.mashape.unirest</groupId>
+        <artifactId>unirest-java</artifactId>
+        <version>1.4.9</version>
+    </dependency>
     </dependencies>
 </project>

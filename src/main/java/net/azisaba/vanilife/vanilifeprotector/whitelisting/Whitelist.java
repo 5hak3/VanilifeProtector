@@ -20,12 +20,17 @@ public class Whitelist {
     public boolean isEnable;
     public int minDays;
     public ArrayList<UUID> whitelists;
+    private KickPlayer kp = null;
 
     public Whitelist(JavaPlugin plugin) {
         this.plugin = plugin;
         isEnable = false;
         minDays = -1;
         whitelists = new ArrayList<>();
+    }
+
+    public void setKp(KickPlayer kp) {
+        this.kp = kp;
     }
 
     /**
@@ -43,24 +48,11 @@ public class Whitelist {
 
     /**
      * wlisteduuids.datにUUIDリストを書き出す
-     * @return 結果の成否
      */
 
-    public boolean saveWlistData() {
-        return saveListData(wfilePath, this.whitelists);
+    public void saveWlistData() {
+        saveListData(wfilePath, this.whitelists);
     }
-
-    /**
-     * olisteduuids.datからUUIDリストを読み込む → 利用しない
-     * @return 結果の成否
-     */
-    public boolean loadOlistData() { return false; }
-
-    /**
-     * olisteduuids.datにUUIDリストを書き出す → 利用しない
-     * @return 結果の成否
-     */
-    public boolean saveOlistData() { return false; }
 
     /**
      * olisteduuids.datからUUIDリストを読み込む
@@ -208,6 +200,7 @@ public class Whitelist {
         else {
             this.plugin.getServer().broadcastMessage(ChatColor.AQUA + "ホワイトリストが無効になりました．");
             OpenCloseNotifier.open();
+            kp.resetKickedCount();
         }
         this.plugin.getLogger().info("ホワイトリストが"+this.isEnable+"になりました．");
     }
