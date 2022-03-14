@@ -4,10 +4,9 @@ import net.azisaba.vanilife.vanilifeprotector.ConfigLoader;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class KickPlayer implements Listener {
     }
 
     @EventHandler
-    public void onPreJoin(AsyncPlayerPreLoginEvent event) {
+    public void onPreJoin(PlayerPreLoginEvent event) {
         if (!cl.whitelist.isEnable) return;
         OfflinePlayer player = Bukkit.getOfflinePlayer(event.getUniqueId());
         if (cl.whitelist.whitelists.contains(event.getUniqueId())) {
@@ -46,7 +45,7 @@ public class KickPlayer implements Listener {
         }
 
         event.setKickMessage("現在ホワイトリストが有効になっております．数時間後に再試行してください．");
-        event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST);
+        event.setResult(PlayerPreLoginEvent.Result.KICK_WHITELIST);
         this.sendMessage(Bukkit.getOfflinePlayer(event.getUniqueId()));
     }
 
