@@ -46,3 +46,21 @@ commands:
     permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command> [MCID] [Value]
+  policelist#add:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID]
+  policelist#remove:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [MCID]
+  policelist#view:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command> [page]
+  vjail:
+    usage: /<command> [MCID] [Reason]
+  whitelist#status:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command>

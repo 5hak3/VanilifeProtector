@@ -36,7 +36,7 @@ public class ViewWhitelist implements CommandExecutor {
         return true;
     }
 
-    private void view(CommandSender sender, ArrayList<UUID> viewList, int page) {
+    public static void view(CommandSender sender, ArrayList<UUID> viewList, int page) {
         int pages = viewList.size() / uuidPerPage + 1;
         if (page >= pages) {
             sender.sendMessage(ChatColor.YELLOW + "そのページは存在しないため，1ページ目を表示します．");

@@ -58,7 +58,7 @@ public class Whitelist {
      * olisteduuids.datからUUIDリストを読み込む
      * @return 結果の成否
      */
-    private ArrayList<UUID> loadListData(String filePath) {
+    public static ArrayList<UUID> loadListData(String filePath) {
         ArrayList<UUID> resList = new ArrayList<>();
         FileInputStream fis = null;
 
@@ -66,7 +66,7 @@ public class Whitelist {
             fis = new FileInputStream(filePath);
         }
         catch (FileNotFoundException e) {
-            this.saveListData(filePath, resList);
+            saveListData(filePath, resList);
             return resList;
         }
 
@@ -126,7 +126,7 @@ public class Whitelist {
      * @return 結果の成否
      */
 
-    private boolean saveListData(String filePath, ArrayList<UUID> saveList) {
+    public static boolean saveListData(String filePath, ArrayList<UUID> saveList) {
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(filePath);

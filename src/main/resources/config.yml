@@ -3,7 +3,16 @@ whitelist:
   # ホワイトリストを有効にするかどうか
   isEnable: false
   # プレイヤーがホワイトリストに入る経過日数
-  minDays: 10
+  minDays: 3
+  # 開放時刻、単位は時
+  openTime: 12
+  # 閉鎖時刻、単位は時
+  closeTime: 0
+
+# policelist関係
+policelist:
+  # プレイヤーがポリスリストに入る経過日数
+  minDays: 5
 
 # webhook関係
 webhook:
@@ -11,3 +20,5 @@ webhook:
   url: https://discord.com/api/webhooks/Example
   # SPNotifierのURL
   url2: https://discord.com/api/webhooks/Example
+  # VJNotifierのURL
+  url3: https://discord.com/api/webhooks/Example

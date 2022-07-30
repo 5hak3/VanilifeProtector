@@ -1,5 +1,6 @@
 package net.azisaba.vanilife.vanilifeprotector;
 
+import net.azisaba.vanilife.vanilifeprotector.jail.Policelist;
 import net.azisaba.vanilife.vanilifeprotector.whitelisting.Whitelist;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -12,10 +13,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ConfigLoader implements CommandExecutor {
     private final JavaPlugin plugin;
     public final Whitelist whitelist;
+    public final Policelist policelist;
+    public int wlOpenTime;
+    public int wlCloseTime;
 
     public ConfigLoader(JavaPlugin plugin) {
         this.plugin = plugin;
         this.whitelist = new Whitelist(plugin);
+        this.policelist = new Policelist(plugin);
         if (this.loadConfig()) Bukkit.getServer().getLogger().info("Config Load Success!");
         else Bukkit.getServer().getLogger().warning("Config Load Failed.");
     }
@@ -35,6 +40,17 @@ public class ConfigLoader implements CommandExecutor {
         this.whitelist.isEnable = (boolean) property;
         property = cs.getInt("minDays");
         this.whitelist.minDays = (int) property;
+        property = cs.getInt("openTime");
+        this.wlOpenTime = (int) property;
+        property = cs.getInt("closeTime");
+        this.wlCloseTime = (int) property;
+
+        // policelist
+        if(!(this.policelist.loadPlistData())) return false;
+        cs = fc.getConfigurationSection("policelist");
+        if (cs == null) return false;
+        property = cs.getInt("minDays");
+        this.policelist.minDays = (int) property;
 
         return true;
     }

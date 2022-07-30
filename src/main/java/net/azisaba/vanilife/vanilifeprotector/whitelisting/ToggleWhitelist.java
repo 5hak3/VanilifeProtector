@@ -20,10 +20,12 @@ import org.jetbrains.annotations.NotNull;
 public class ToggleWhitelist implements CommandExecutor, Listener {
     private final JavaPlugin plugin;
     private final ConfigLoader cl;
+    private final WhitelistTimer wlt;
 
-    public ToggleWhitelist(JavaPlugin plugin, ConfigLoader cl) {
+    public ToggleWhitelist(JavaPlugin plugin, ConfigLoader cl, WhitelistTimer wlt) {
         this.cl = cl;
         this.plugin = plugin;
+        this.wlt = wlt;
     }
 
     /**
@@ -45,10 +47,12 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
     /**
      * ホワイトリスト無効時にプレイヤーが離脱した際に，そのプレイヤーがホワイトリスト・オブザーバなら，
      * 他にホワイトリスト・オブザーバがいなければホワイトリストをONにする．
+     * ただし、wltのwlTimeTrgがTrueの場合は何もしない
      */
     @EventHandler (priority = EventPriority.HIGHEST)
     public void onLeave(PlayerQuitEvent event) {
         if (cl.whitelist.isEnable) return;
+        if (wlt.wlTimeTrg) return;
         if (!event.getPlayer().hasPermission("vanprotect.observer")) return;
 
         Essentials ess = (Essentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
