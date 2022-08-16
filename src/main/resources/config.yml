@@ -5,9 +5,9 @@ whitelist:
   # プレイヤーがホワイトリストに入る経過日数
   minDays: 3
   # 開放時刻、単位は時
-  openTime: 12
+  openTime: "12:0"
   # 閉鎖時刻、単位は時
-  closeTime: 0
+  closeTime: "0:0"
 
 # policelist関係
 policelist:

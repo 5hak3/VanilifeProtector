@@ -187,7 +187,7 @@ public class Whitelist {
     }
 
     /**
-     * ホワイトリストのON/OFFを切り替える
+     * ホワイトリストのON/OFFを切り替える → 互換性確保のため残し
      */
     public void toggleWlist() {
         this.isEnable = !(this.isEnable);
@@ -203,5 +203,29 @@ public class Whitelist {
             kp.resetKickedCount();
         }
         this.plugin.getLogger().info("ホワイトリストが"+this.isEnable+"になりました．");
+    }
+
+    public void onWlist() {
+        if(this.isEnable) return;
+
+        this.isEnable = true;
+        this.plugin.getConfig().set("whitelist.isEnable", true);
+        this.plugin.saveConfig();
+
+        this.plugin.getServer().broadcastMessage(ChatColor.RED + "ホワイトリストが有効になりました．");
+        OpenCloseNotifier.close();
+        this.plugin.getLogger().info("ホワイトリストが有効になりました．");
+    }
+
+    public void offWlist() {
+        if(!this.isEnable) return;
+
+        this.isEnable = false;
+        this.plugin.getConfig().set("whitelist.isEnable", false);
+        this.plugin.saveConfig();
+
+        this.plugin.getServer().broadcastMessage(ChatColor.AQUA + "ホワイトリストが無効になりました．");
+        OpenCloseNotifier.open();
+        this.plugin.getLogger().info("ホワイトリストが無効になりました．");
     }
 }

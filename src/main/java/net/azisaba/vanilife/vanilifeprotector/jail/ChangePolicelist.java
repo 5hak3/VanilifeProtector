@@ -39,13 +39,13 @@ public class ChangePolicelist implements CommandExecutor, Listener {
         boolean res = false;
         if (command.getName().equalsIgnoreCase("policelist#add")) {
             res = add(player);
-            if (res) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録に成功しました．");
-            else sender.sendMessage(ChatColor.RED + "ホワイトリスト登録に失敗しました．");
+            if (res) sender.sendMessage(ChatColor.AQUA + "ポリスリスト登録に成功しました．");
+            else sender.sendMessage(ChatColor.RED + "ポリスリスト登録に失敗しました．");
         }
         else if (command.getName().equalsIgnoreCase("policelist#remove")) {
             res = remove(player);
-            if (res) sender.sendMessage(ChatColor.AQUA + "ホワイトリスト登録解除に成功しました．");
-            else sender.sendMessage(ChatColor.RED + "ホワイトリスト登録解除に失敗しました．");
+            if (res) sender.sendMessage(ChatColor.AQUA + "ポリスリスト登録解除に成功しました．");
+            else sender.sendMessage(ChatColor.RED + "ポリスリスト登録解除に失敗しました．");
         }
 
         return res;

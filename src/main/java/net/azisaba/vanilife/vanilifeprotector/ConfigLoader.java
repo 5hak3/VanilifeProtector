@@ -10,12 +10,16 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public class ConfigLoader implements CommandExecutor {
     private final JavaPlugin plugin;
     public final Whitelist whitelist;
     public final Policelist policelist;
-    public int wlOpenTime;
-    public int wlCloseTime;
+    public int wlOpenTimeHour;
+    public int wlOpenTimeMin;
+    public int wlCloseTimeHour;
+    public int wlCloseTimeMin;
 
     public ConfigLoader(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -40,10 +44,14 @@ public class ConfigLoader implements CommandExecutor {
         this.whitelist.isEnable = (boolean) property;
         property = cs.getInt("minDays");
         this.whitelist.minDays = (int) property;
-        property = cs.getInt("openTime");
-        this.wlOpenTime = (int) property;
-        property = cs.getInt("closeTime");
-        this.wlCloseTime = (int) property;
+        property = cs.getString("openTime");
+        property = ((String) Objects.requireNonNull(property)).split(":");
+        this.wlOpenTimeHour = Integer.parseInt(((String[])property)[0]);
+        this.wlOpenTimeMin = Integer.parseInt(((String[])property)[1]);
+        property = cs.getString("closeTime");
+        property = ((String) Objects.requireNonNull(property)).split(":");
+        this.wlCloseTimeHour = Integer.parseInt(((String[])property)[0]);
+        this.wlCloseTimeMin = Integer.parseInt(((String[])property)[1]);
 
         // policelist
         if(!(this.policelist.loadPlistData())) return false;

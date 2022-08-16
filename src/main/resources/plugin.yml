@@ -26,6 +26,14 @@ commands:
     permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．
     usage: /<command>
+  whitelist#on:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command>
+  whitelist#off:
+    permission: vanprotect.commands
+    permission-message: このコマンドは管理者専用です．
+    usage: /<command>
   whitelist#view:
     permission: vanprotect.commands
     permission-message: このコマンドは管理者専用です．

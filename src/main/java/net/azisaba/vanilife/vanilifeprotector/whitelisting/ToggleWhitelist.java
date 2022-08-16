@@ -33,11 +33,13 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
      */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        cl.whitelist.toggleWlist();
+        if (command.getName().equalsIgnoreCase("whitelist#toggle")) cl.whitelist.toggleWlist();
+        else if (command.getName().equalsIgnoreCase("whitelist#on")) cl.whitelist.onWlist();
+        else if (command.getName().equalsIgnoreCase("whitelist#off")) cl.whitelist.offWlist();
+
         if (cl.whitelist.isEnable) {
             sender.sendMessage(ChatColor.AQUA + "ホワイトリストを有効にしました．");
-        }
-        else {
+        } else {
             sender.sendMessage(ChatColor.AQUA + "ホワイトリストを無効にしました．");
         }
         plugin.getLogger().info("理由: " + sender.getName() + "によるコマンド操作．");
@@ -61,7 +63,7 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
             if (p.getUniqueId().equals(event.getPlayer().getUniqueId())) continue;
             if (p.hasPermission("vanprotect.observer") && !ess.getUser(p).isAfk()) return;
         }
-        cl.whitelist.toggleWlist();
+        cl.whitelist.onWlist();
         plugin.getLogger().info("理由: " + event.getPlayer().getName() + "がログアウトしたため．");
     }
 
@@ -75,7 +77,7 @@ public class ToggleWhitelist implements CommandExecutor, Listener {
         Player player = event.getPlayer();
 
         if (player.hasPermission("vanprotect.observer")) {
-            cl.whitelist.toggleWlist();
+            cl.whitelist.offWlist();
             plugin.getLogger().info("理由: " + event.getPlayer().getName() + "がログインしたため．");
             Bukkit.getScheduler().runTaskLater(
                     plugin,

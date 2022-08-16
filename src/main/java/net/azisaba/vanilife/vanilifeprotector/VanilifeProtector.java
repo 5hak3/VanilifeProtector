@@ -28,6 +28,8 @@ public final class VanilifeProtector extends JavaPlugin {
         Objects.requireNonNull(getCommand("vpreload")).setExecutor(cl);
         Objects.requireNonNull(getCommand("emergency")).setExecutor(em);
         Objects.requireNonNull(getCommand("whitelist#toggle")).setExecutor(twl);
+        Objects.requireNonNull(getCommand("whitelist#on")).setExecutor(twl);
+        Objects.requireNonNull(getCommand("whitelist#off")).setExecutor(twl);
         Objects.requireNonNull(getCommand("whitelist#add")).setExecutor(cwl);
         Objects.requireNonNull(getCommand("whitelist#remove")).setExecutor(cwl);
         Objects.requireNonNull(getCommand("whitelist#view")).setExecutor(vwl);
@@ -44,9 +46,8 @@ public final class VanilifeProtector extends JavaPlugin {
         Objects.requireNonNull(getCommand("vjail")).setExecutor(jc);
         getServer().getPluginManager().registerEvents(cpl, this);
 
-        // サーバ起動時にホワリスが無効になっていたら有効にする
-        if (!cl.whitelist.isEnable) cl.whitelist.toggleWlist();
-        // WL開放時刻帯なら無効にする
-        if (wlt.wlTimeTrg) cl.whitelist.toggleWlist();
+        // サーバ起動時にWL開放時刻帯なら無効に、そうでなければ有効にする
+        if (wlt.wlTimeTrg) cl.whitelist.offWlist();
+        else cl.whitelist.onWlist();
     }
 }
